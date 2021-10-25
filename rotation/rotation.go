@@ -35,10 +35,6 @@ N и K целые числа в диапазоне [0..100];
 */
 
 func Solution(arr []int, shift int) []int {
-	return solutionB(arr, shift)
-}
-
-func solutionB(arr []int, shift int) []int {
 	len := len(arr)
 	if len == 0 {
 		return nil
