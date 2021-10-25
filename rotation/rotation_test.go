@@ -72,18 +72,6 @@ func TestSolution(t *testing.T) {
 	testFunction("Solution", Solution)(t)
 }
 
-func Test_solutionA(t *testing.T) {
-	testFunction("solutionA", solutionA)(t)
-}
-
-func Test_solutionB(t *testing.T) {
-	testFunction("solutionB", solutionB)(t)
-}
-
-func Test_solutionC(t *testing.T) {
-	testFunction("solutionC", solutionC)(t)
-}
-
 func loadTests(path string) (tests []args, err error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -124,16 +112,4 @@ func benchFunction(f impl) func(b *testing.B) {
 
 func BenchmarkSolution(b *testing.B) {
 	benchFunction(Solution)(b)
-}
-
-func Benchmark_solutionA(b *testing.B) {
-	benchFunction(solutionA)(b)
-}
-
-func Benchmark_solutionB(b *testing.B) {
-	benchFunction(solutionB)(b)
-}
-
-func Benchmark_solutionC(b *testing.B) {
-	benchFunction(solutionC)(b)
 }

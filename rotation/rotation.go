@@ -38,23 +38,6 @@ func Solution(arr []int, shift int) []int {
 	return solutionB(arr, shift)
 }
 
-// In loop copy
-func solutionA(arr []int, shift int) []int {
-	high := len(arr)
-	if high == 0 {
-		return nil
-	}
-
-	res := make([]int, high)
-	shift = (high + shift%high) % high
-	for i := 0; i < high; i++ {
-		dsti := (shift + i) % high
-		res[dsti] = arr[i]
-	}
-	return res
-}
-
-// Slice copy
 func solutionB(arr []int, shift int) []int {
 	len := len(arr)
 	if len == 0 {
@@ -66,16 +49,4 @@ func solutionB(arr []int, shift int) []int {
 	copy(res[shift:], arr[:split])
 	copy(res[:shift], arr[split:])
 	return res
-}
-
-// WARNING: Will modify source array
-// Append
-func solutionC(arr []int, shift int) []int {
-	len := len(arr)
-	if len == 0 {
-		return nil
-	}
-	shift = len - (len+shift%len)%len
-	res := append(arr, arr[:shift]...)
-	return res[shift:]
 }
