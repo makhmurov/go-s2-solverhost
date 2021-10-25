@@ -41,7 +41,7 @@ var tests = []struct {
 func TestSolution(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := SolutionF(tt.args.arr); got != tt.want {
+			if got := Solution(tt.args.arr); got != tt.want {
 				t.Errorf("Solution() = %v, want %v", got, tt.want)
 			}
 		})
@@ -87,14 +87,14 @@ func genTest(len int) []int {
 
 func benchFunction(f impl, b *testing.B) {
 	b.StopTimer()
-	//arr := tests[2].args.arr
+
 	btd, err := loadTests("testdata/data.json")
 	if err != nil {
 		panic(err)
 	}
 	bigct := genTest(1000000)
 	btd = append(btd, tests[1].args, tests[2].args, tests[3].args, args{bigct})
-	//return func() {
+
 	b.ResetTimer()
 	b.StartTimer()
 	for n, td := range btd {
@@ -102,11 +102,9 @@ func benchFunction(f impl, b *testing.B) {
 		b.Run(tname, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				f(td.arr)
-				//fmt.Println(n, )
 			}
 		})
 	}
-	//}
 }
 
 func BenchmarkSolution(b *testing.B) {
@@ -119,16 +117,4 @@ func BenchmarkSolutionB(b *testing.B) {
 
 func BenchmarkSolutionC(b *testing.B) {
 	benchFunction(SolutionC, b)
-}
-
-func BenchmarkSolutionD(b *testing.B) {
-	benchFunction(SolutionD, b)
-}
-
-func BenchmarkSolutionE(b *testing.B) {
-	benchFunction(SolutionE, b)
-}
-
-func BenchmarkSolutionF(b *testing.B) {
-	benchFunction(SolutionF, b)
 }
