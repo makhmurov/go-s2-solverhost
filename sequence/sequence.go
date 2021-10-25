@@ -32,40 +32,10 @@ N это целое число в диапазоне [1..100,000];
 */
 
 func Solution(arr []int) int {
-	return SolutionC(arr)
-}
-
-// Выделение памяти сразу для всех значений
-func SolutionB(arr []int) int {
 	if len(arr) == 0 {
 		return 0
 	}
 
-	//sort.Ints(arr)
-	max := len(arr)
-	um := make(map[int]struct{}, max)
-	for _, v := range arr {
-		if v > max {
-			return 0
-		}
-		if v < 1 {
-			return 0
-		}
-		if _, ok := um[v]; ok {
-			return 0
-		}
-		um[v] = struct{}{}
-	}
-	return 1
-}
-
-// Выделение по мере использования
-func SolutionC(arr []int) int {
-	if len(arr) == 0 {
-		return 0
-	}
-
-	//sort.Ints(arr)
 	max := len(arr)
 	um := make(map[int]struct{})
 	for _, v := range arr {

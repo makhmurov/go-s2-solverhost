@@ -110,11 +110,3 @@ func benchFunction(f impl, b *testing.B) {
 func BenchmarkSolution(b *testing.B) {
 	benchFunction(Solution, b)
 }
-
-func BenchmarkSolutionB(b *testing.B) {
-	benchFunction(SolutionB, b)
-}
-
-func BenchmarkSolutionC(b *testing.B) {
-	benchFunction(SolutionC, b)
-}
