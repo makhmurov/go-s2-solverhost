@@ -101,7 +101,8 @@ func benchFunction(f impl, b *testing.B) {
 		tname := fmt.Sprintf("test %d", n)
 		b.Run(tname, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				f(td.arr)
+				got := f(td.arr)
+				b.Log("Solution() = ", got)
 			}
 		})
 	}
