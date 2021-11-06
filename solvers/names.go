@@ -1,19 +1,19 @@
-package task
+package solvers
 
 type Task int
 
 const (
-	rotation Task = iota
-	unpaired
-	sequence
-	missed
+	Rotation Task = iota
+	Unpaired
+	Sequence
+	Missed
 )
 
 var Names = map[Task]string{
-	rotation: "Циклическая ротация",
-	unpaired: "Чудные вхождения в массив",
-	sequence: "Проверка последовательности",
-	missed:   "Поиск отсутствующего элемента",
+	Rotation: "Циклическая ротация",
+	Unpaired: "Чудные вхождения в массив",
+	Sequence: "Проверка последовательности",
+	Missed:   "Поиск отсутствующего элемента",
 }
 
 func Name(id Task) string {
