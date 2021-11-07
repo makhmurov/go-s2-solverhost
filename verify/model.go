@@ -13,8 +13,8 @@ type Request struct {
 	Results - slice of results (may be lists)
 */
 type Results struct {
-	Payload *[]json.RawMessage `json:"payload"`
-	Results []interface{}      `json:"results"`
+	Payload []json.RawMessage `json:"payload"`
+	Results []interface{}     `json:"results"`
 }
 
 type Response struct {
