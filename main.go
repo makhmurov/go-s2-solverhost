@@ -229,13 +229,32 @@ func run() {
 		if err != nil {
 			log.Println(err)
 		}
-		fmt.Printf("Response: %#v\n", vr)
 		// errors:
 		//  - http errors
 		//  - timeout errors
 		//  - decode errors
 		// print results
+		reportResults(t, vr)
 	}
+}
+
+// Verification report
+func reportResults(t solvers.Task, vr *verify.Response) {
+	fmt.Printf("Task: %s\n", solvers.Name(t))
+	fmt.Printf("Pass: %3d%%\n", vr.Percent)
+	if fl := len(vr.Fails); fl > 0 {
+		fmt.Printf("Failed: %d\n", fl)
+		for _, ft := range vr.Fails {
+			fmt.Printf("  Failed DataSet: %d\n", ft.DataSet)
+			fmt.Printf("  Expected: %s\n", ft.OriginalResult)
+			fmt.Printf("  Received: %s\n", ft.ExternalResult)
+			fmt.Println()
+		}
+	} else {
+		fmt.Println("All tests passed")
+		fmt.Println()
+	}
+	fmt.Println()
 }
 
 func main() {
