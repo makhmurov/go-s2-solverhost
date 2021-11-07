@@ -8,7 +8,11 @@ type config struct {
 	verifyURL string
 }
 
-var cfg config
+var cfg config = config{
+	username:  os.Getenv("USER_NAME"),
+	dataURL:   os.Getenv("TASK_URI"),
+	verifyURL: os.Getenv("VERIFY_URI"),
+}
 
 func (c *config) Init() {
 	c.username = os.Getenv("USER_NAME")
