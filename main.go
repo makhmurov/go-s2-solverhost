@@ -39,6 +39,12 @@ import (
 
 // Structured objects
 
+TODO: Handle erorrs:
+// errors:
+//  - http errors
+//  - timeout errors
+//  - decode errors
+
 */
 
 func getPayload(taskID solvers.Task) (data []json.RawMessage, err error) {
@@ -89,7 +95,6 @@ func verifyResults(vreq *verify.Request) (*verify.Response, error) {
 	pr := bytes.NewReader(b)
 
 	// Do request
-	// TODO: hide communication implementation, but leave transport
 	resp, err := http.Post(u, "application/json", pr)
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
@@ -98,10 +103,9 @@ func verifyResults(vreq *verify.Request) (*verify.Response, error) {
 	defer resp.Body.Close()
 
 	// Response part
-	//r := resp.Body
-	r := io.TeeReader(resp.Body, os.Stdout)
+	r := resp.Body
+	//r := io.TeeReader(resp.Body, os.Stdout)
 
-	// TODO: LimitReader?
 	defer io.Copy(io.Discard, r)
 	var sr verify.Response
 	dec := json.NewDecoder(r)
@@ -111,7 +115,7 @@ func verifyResults(vreq *verify.Request) (*verify.Response, error) {
 		// handle error
 		return nil, err
 	}
-	fmt.Println()
+	//fmt.Println()
 	return &sr, nil
 }
 
@@ -202,9 +206,7 @@ func run() {
 			panic(err)
 			//continue
 		}
-		// prepare result collection
-		// (use map and postprocessing if length unknown)
-		// TODO: declare whanted Results type
+		// prepare result collection (use map and postprocessing if length unknown)
 		results := make([]interface{}, len(payload))
 		// get task instance
 		handler := handlers[t]
@@ -212,8 +214,6 @@ func run() {
 		for pn, p := range payload {
 			results[pn] = handler(p)
 		}
-
-		fmt.Println(results)
 
 		// send results to verification service
 		vreq := verify.Request{
@@ -229,11 +229,6 @@ func run() {
 		if err != nil {
 			log.Println(err)
 		}
-		// errors:
-		//  - http errors
-		//  - timeout errors
-		//  - decode errors
-		// print results
 		reportResults(t, vr)
 	}
 }
@@ -264,34 +259,6 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	_ = ctx
-
-	/*
-		Отдельный pipline для каждой задачи? Или общий для всёх?
-		Недостатки общего: тормозит очередь выполнения.
-		Особенно, если задача не предназначена для свободного обработчика.
-
-		Следовательно, ...
-
-		Могут иметься общие этапы для различных задач.
-
-
-		for avaliable task,
-
-		pipeline:
-			1. get task data
-			for every element in data
-				2. wrap/unwrap task data
-				3. process data (call concrete solver) - solver
-				*. wrap result data
-				*. collect result
-			4. create verify request
-			5. send verify request
-			6. get verify response
-			7. collect verify results
-
-			done. print verify results
-			// end or wait command
-	*/
 
 	run()
 
