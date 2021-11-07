@@ -10,16 +10,28 @@ type config struct {
 
 var cfg config = config{
 	username:  os.Getenv("USER_NAME"),
-	dataURL:   os.Getenv("TASK_URI"),
-	verifyURL: os.Getenv("VERIFY_URI"),
+	dataURL:   os.Getenv("DATASET_URL"),
+	verifyURL: os.Getenv("VERIFY_URL"),
 }
 
 func (c *config) Init() {
 	c.username = os.Getenv("USER_NAME")
-	c.dataURL = os.Getenv("TASKS_URI")
+	c.dataURL = os.Getenv("DATASET_URL")
 	c.verifyURL = os.Getenv("VERIFY_URI")
 }
 
 func init() {
 	cfg.Init()
+}
+
+func Username() string {
+	return cfg.username
+}
+
+func DataURL() string {
+	return cfg.dataURL
+}
+
+func VerifyURL() string {
+	return cfg.verifyURL
 }
