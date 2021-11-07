@@ -2,7 +2,6 @@ package verify
 
 import (
 	"encoding/json"
-	"solverhost/solvers"
 	"solverhost/solvers/missed"
 	"solverhost/solvers/rotation"
 	"solverhost/solvers/sequence"
@@ -31,11 +30,11 @@ Missed:   "Поиск отсутствующего элемента"
 
 type handlerFunc func(json.RawMessage) interface{}
 
-var handlers = map[solvers.Task]handlerFunc{
-	solvers.Rotation: rotationHandler,
-	solvers.Unpaired: unpairedHandler,
-	solvers.Sequence: sequenceHandler,
-	solvers.Missed:   missedHandler,
+var handlers = map[Task]handlerFunc{
+	Rotation: rotationHandler,
+	Unpaired: unpairedHandler,
+	Sequence: sequenceHandler,
+	Missed:   missedHandler,
 }
 
 func rotationHandler(p json.RawMessage) interface{} {

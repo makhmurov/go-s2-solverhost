@@ -7,13 +7,12 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"solverhost/solvers"
 )
 
 /*
 Выполнить проверку выполнения заданий посредством внешнего сервиса.
 Имеются две точки входа:
-- TASKS_URI - получить тестовые входные данные
+- DATASET_URI - получить тестовые входные данные
 - VERIFY_URI - отправить результат на проверку
 
 Необходимо проверить все задачи, выполнив запрос на получение входных данных
@@ -30,11 +29,11 @@ TODO: Handle erorrs:
 */
 
 func Do() {
-	var tasks = []solvers.Task{
-		solvers.Rotation,
-		solvers.Unpaired,
-		solvers.Sequence,
-		solvers.Missed,
+	var tasks = []Task{
+		Rotation,
+		Unpaired,
+		Sequence,
+		Missed,
 	}
 
 	for _, t := range tasks {
@@ -56,7 +55,7 @@ func Do() {
 		// send results to verification service
 		vreq := Request{
 			UserName: cfg.username,
-			Task:     solvers.Name(t),
+			Task:     t.Name(),
 			Results: Results{
 				Payload: payload,
 				Results: results,
@@ -71,8 +70,8 @@ func Do() {
 	}
 }
 
-func getDataSets(taskID solvers.Task) (data []json.RawMessage, err error) {
-	u := cfg.dataURL + solvers.Name(taskID)
+func getDataSets(t Task) (data []json.RawMessage, err error) {
+	u := cfg.dataURL + t.Name()
 	fmt.Println("url:", u)
 
 	resp, err := http.Get(u)
@@ -145,8 +144,8 @@ func verifyResults(vreq *Request) (*Response, error) {
 }
 
 // Verification report
-func reportResults(t solvers.Task, vr *Response) {
-	fmt.Printf("Task: %s\n", solvers.Name(t))
+func reportResults(t Task, vr *Response) {
+	fmt.Printf("Task: %s\n", t.Name())
 	fmt.Printf("Pass: %3d%%\n", vr.Percent)
 	if fl := len(vr.Fails); fl > 0 {
 		fmt.Printf("Failed: %d\n", fl)
