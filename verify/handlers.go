@@ -2,10 +2,10 @@ package verify
 
 import (
 	"encoding/json"
-	"solverhost/solvers/missed"
-	"solverhost/solvers/rotation"
-	"solverhost/solvers/sequence"
-	"solverhost/solvers/unpaired"
+	"solverhost/task/missed"
+	"solverhost/task/rotation"
+	"solverhost/task/sequence"
+	"solverhost/task/unpaired"
 )
 
 /*
