@@ -9,7 +9,7 @@ const (
 	Missed
 )
 
-var Names = map[Task]string{
+var names = map[Task]string{
 	Rotation: "Циклическая ротация",
 	Unpaired: "Чудные вхождения в массив",
 	Sequence: "Проверка последовательности",
@@ -17,9 +17,9 @@ var Names = map[Task]string{
 }
 
 func (t Task) Name() string {
-	return Names[t]
+	return names[t]
 }
 
 func Name(id Task) string {
-	return Names[id]
+	return names[id]
 }
