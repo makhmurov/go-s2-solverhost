@@ -1,4 +1,4 @@
-package main
+package verify
 
 import "os"
 
@@ -10,6 +10,6 @@ type config struct {
 
 var cfg config = config{
 	username:  os.Getenv("USER_NAME"),
-	dataURL:   os.Getenv("TASKS_URI"),
-	verifyURL: os.Getenv("VERIFY_URI"),
+	dataURL:   os.Getenv("DATASET_URL"),
+	verifyURL: os.Getenv("VERIFY_URL"),
 }

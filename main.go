@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"os/signal"
+	"solverhost/verify"
 	"syscall"
 )
 
@@ -15,8 +16,7 @@ func main() {
 	defer cancel()
 	_ = ctx
 
-	// see verify.go
-	Do()
+	verify.Do()
 
 	/*
 		for {
