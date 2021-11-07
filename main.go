@@ -11,6 +11,7 @@ func main() {
 	// ctx, cancel := context.WithCancel(context.Background())
 	// defer cancel()
 
+	// TODO: pass configuration from outside
 	verify.Do()
 
 	// for {
