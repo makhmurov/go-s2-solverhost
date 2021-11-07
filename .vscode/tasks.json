@@ -4,12 +4,25 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "type": "shell",
-            "command": "go build",
+            "label": "Build",
+            "type": "process",
+            "command": "go",
+            "args": ["build"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": [
                 "$go"
-            ]
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
         }
     ]
 }
