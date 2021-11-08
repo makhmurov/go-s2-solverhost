@@ -13,6 +13,9 @@
 ---
 
 ## Часть 1. Реализация задач
+
+Реализации представлены в пакете [task](https://github.com/makhmurov/go-s2-solverhost/tree/dev/task):
+
 - ["Циклическая ротация"](https://github.com/makhmurov/go-s2-solverhost/tree/dev/task/rotation)
 - ["Чудные вхождения в массив"](https://github.com/makhmurov/go-s2-solverhost/tree/dev/task/unpaired)
 - ["Проверка последовательности"](https://github.com/makhmurov/go-s2-solverhost/tree/dev/task/sequence)
